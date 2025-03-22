@@ -7,9 +7,9 @@ function calculateOverworldToNether() {
         return;
     }
 
-    // 오버월드 -> 네더 좌표 계산
-    const overworldToNetherX = xCoord * 8;
-    const overworldToNetherZ = zCoord * 8;
+    // 오버월드 -> 네더 좌표 계산 (반올림)
+    const overworldToNetherX = Math.round(xCoord * 8);
+    const overworldToNetherZ = Math.round(zCoord * 8);
 
     // 결과 출력
     const resultText = `네더 X: ${overworldToNetherX}, Z: ${overworldToNetherZ}`;
@@ -28,9 +28,9 @@ function calculateNetherToOverworld() {
         return;
     }
 
-    // 네더 -> 오버월드 좌표 계산
-    const netherToOverworldX = xCoord / 8;
-    const netherToOverworldZ = zCoord / 8;
+    // 네더 -> 오버월드 좌표 계산 (반올림)
+    const netherToOverworldX = Math.round(xCoord / 8);
+    const netherToOverworldZ = Math.round(zCoord / 8);
 
     // 결과 출력
     const resultText = `오버월드 X: ${netherToOverworldX}, Z: ${netherToOverworldZ}`;
