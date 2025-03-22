@@ -1,36 +1,61 @@
-document.getElementById('coordinateForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // 폼 제출을 막아 페이지 새로 고침을 방지합니다.
+function calculateOverworldToNether() {
+    const xCoord = parseFloat(document.getElementById("overworld-x").value);
+    const zCoord = parseFloat(document.getElementById("overworld-z").value);
 
-    const x = parseInt(document.getElementById('xCoordinate').value);
-    const z = parseInt(document.getElementById('zCoordinate').value);
-
-    // 입력값이 유효한지 체크
-    if (isNaN(x) || isNaN(z)) {
-        document.getElementById('output').textContent = "유효한 좌표 값을 입력하세요.";
+    if (isNaN(xCoord) || isNaN(zCoord)) {
+        alert("오버월드 좌표를 정확히 입력하세요.");
         return;
     }
 
-    // 지옥문 좌표 계산 (예시)
-    const netherX = Math.floor(x / 8);  // 정수 값으로 계산
-    const netherZ = Math.floor(z / 8);  // 정수 값으로 계산
+    // 오버월드 -> 네더 좌표 계산
+    const overworldToNetherX = xCoord * 8;
+    const overworldToNetherZ = zCoord * 8;
 
-    // 결과 출력 (정수로 표시)
-    const resultText = `지옥문 좌표: X = ${netherX}, Z = ${netherZ}`;
-    document.getElementById('output').textContent = resultText;
+    // 결과 출력
+    const resultText = `네더 X: ${overworldToNetherX}, Z: ${overworldToNetherZ}`;
+    document.getElementById("result-overworld-to-nether").innerText = resultText.trim();
 
-    // 복사 버튼 보이기
-    const copyButton = document.getElementById('copyButton');
-    copyButton.style.display = 'inline-block';
+    // 복사 버튼 표시
+    document.getElementById("copy-overworld-to-nether").style.display = 'block';
+}
 
-    // 복사 버튼 클릭 시 동작
-    copyButton.addEventListener('click', function() {
-        // 숫자만 복사 (결과에서 "X ="와 "Z ="를 제외한 값만)
-        const copyText = `${netherX} ${netherZ}`;
-        
-        // 클립보드에 숫자만 복사
-        navigator.clipboard.writeText(copyText)
-            .catch(function(error) {
-                console.error('복사 실패: ', error);
-            });
-    });
-});
+function calculateNetherToOverworld() {
+    const xCoord = parseFloat(document.getElementById("nether-x").value);
+    const zCoord = parseFloat(document.getElementById("nether-z").value);
+
+    if (isNaN(xCoord) || isNaN(zCoord)) {
+        alert("네더 좌표를 정확히 입력하세요.");
+        return;
+    }
+
+    // 네더 -> 오버월드 좌표 계산
+    const netherToOverworldX = xCoord / 8;
+    const netherToOverworldZ = zCoord / 8;
+
+    // 결과 출력
+    const resultText = `오버월드 X: ${netherToOverworldX}, Z: ${netherToOverworldZ}`;
+    document.getElementById("result-nether-to-overworld").innerText = resultText.trim();
+
+    // 복사 버튼 표시
+    document.getElementById("copy-nether-to-overworld").style.display = 'block';
+}
+
+function copyToClipboard(resultId) {
+    // 결과 텍스트 가져오기
+    const resultText = document.getElementById(resultId).innerText;
+    
+    // 숫자만 추출하고 공백이 여러 칸일 경우 하나로 변경
+    const numbersOnly = resultText.replace(/[^0-9\s-]/g, '').replace(/\s+/g, ' ').trim(); // 공백 하나로 합치기
+
+    // 임시 textarea 생성
+    const textarea = document.createElement('textarea');
+    textarea.value = numbersOnly;
+    document.body.appendChild(textarea);
+
+    // 텍스트 선택 및 복사
+    textarea.select();
+    document.execCommand('copy');
+    
+    // 임시 textarea 제거
+    document.body.removeChild(textarea);
+}

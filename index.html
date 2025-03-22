@@ -3,35 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>마인크래프트 지옥문 좌표 계산기</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
+    <div class="container">
         <h1>마인크래프트 지옥문 좌표 계산기</h1>
-    </header>
-    
-    <main>
-        <form id="coordinateForm">
-            <div class="form-group">
-                <label for="xCoordinate">X 좌표:</label>
-                <input type="number" id="xCoordinate" name="xCoordinate" required>
-            </div>
-            <div class="form-group">
-                <label for="zCoordinate">Z 좌표:</label>
-                <input type="number" id="zCoordinate" name="zCoordinate" required>
-            </div>
-            <button type="submit">계산하기</button>
-        </form>
 
-        <div id="result">
-            <h2>결과:</h2>
-            <p id="output"></p>
-            <button id="copyButton" style="display: none;">결과 복사</button>
+        <div class="calculator">
+            <div class="left">
+                <h2><span class="overworld">오버월드</span> ⭢ <span class="nether">네더</span> 좌표 계산</h2>
+                <label for="overworld-x"><span class="overworld">오버월드</span> X 좌표:</label>
+                <input type="number" id="overworld-x">
+                <label for="overworld-z"><span class="overworld">오버월드</span> Z 좌표:</label>
+                <input type="number" id="overworld-z">
+                <button onclick="calculateOverworldToNether()">계산하기 (<span class="overworld">오버월드</span> ⭢ <span class="nether">네더</span>)</button>
+                <p id="result-overworld-to-nether"></p>
+                <button id="copy-overworld-to-nether" onclick="copyToClipboard('result-overworld-to-nether')">결과 복사</button>
+            </div>
+
+            <div class="right">
+                <h2><span class="nether">네더</span> ⭢ <span class="overworld">오버월드</span> 좌표 계산</h2>
+                <label for="nether-x"><span class="nether">네더</span> X 좌표:</label>
+                <input type="number" id="nether-x">
+                <label for="nether-z"><span class="nether">네더</span> Z 좌표:</label>
+                <input type="number" id="nether-z">
+                <button onclick="calculateNetherToOverworld()">계산하기 (<span class="nether">네더</span> ⭢ <span class="overworld">오버월드</span>)</button>
+                <p id="result-nether-to-overworld"></p>
+                <button id="copy-nether-to-overworld" onclick="copyToClipboard('result-nether-to-overworld')">결과 복사</button>
+            </div>
         </div>
-    </main>
+    </div>
 
+    <!-- 여기에 script.js 파일을 연결합니다. -->
     <script src="script.js"></script>
 </body>
 </html>
